@@ -6,13 +6,15 @@ namespace picklesFramework2\px2agent;
  */
 class px2project{
 	private $main;
+	private $php_self;
 	private $options;
 
 	/**
 	 * Constructor
 	 */
-	public function __construct($main, $options){
+	public function __construct($main, $php_self, $options){
 		$this->main = $main;
+		$this->php_self = $php_self;
 		$this->options = (array) $options;
 	}
 

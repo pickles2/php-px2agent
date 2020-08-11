@@ -17,8 +17,8 @@ class px2agent{
 	/**
 	 * Create project object
 	 */
-	public function createProject(){
-		$px2project = new px2project($this, $this->options);
+	public function createProject( $php_self ){
+		$px2project = new px2project($this, $php_self, $this->options);
 		return $px2project;
-	}	
+	}
 }

@@ -34,16 +34,26 @@ __pickles2/px2agent__ は、[Pickles 2](https://pickles2.pxt.jp/)  と PHP ス�
 
 
 
+
+## インストール - Installation
+
+```
+$ composer require pickles2/px2agent;
+```
+
+
+
 ## 使い方 - Usage
 
-```js
-var px2proj = require('px2agent').createProject('./.px_execute.php');
+```php
+$px2agent = new picklesFramework2\px2agent\px2agent();
+$px2proj = $px2agent->createProject('/path/to/.px_execute.php');
 
 
 /**
  * Pickles 2 にクエリを投げて、結果を受け取る (汎用)
  */
-px2proj.query('/?PX=phpinfo', {
+$px2proj->query('/?PX=phpinfo', {
 	"output": "json",
 	"userAgent": "Mozilla/5.0",
 	"success": function(data){
@@ -57,7 +67,7 @@ px2proj.query('/?PX=phpinfo', {
 /**
  * PXコマンドを実行する
  */
-px2proj.px_command(
+$px2proj->px_command(
     'publish.run',
     '/index.html',
     {path_region: "/region/"},
@@ -69,7 +79,7 @@ px2proj.px_command(
 /**
  * バージョン番号を取得する
  */
-px2proj.get_version(function(value){
+$px2proj->get_version(function(value){
 	console.log(value);
 });
 
@@ -77,265 +87,265 @@ px2proj.get_version(function(value){
 /**
  * configデータを取得する
  */
-px2proj.get_config(function(value){
+$px2proj->get_config(function(value){
 	console.log(value);
 });
 
 /**
  * サイトマップデータを取得する
  */
-px2proj.get_sitemap(function(value){
+$px2proj->get_sitemap(function(value){
 	console.log(value);
 });
 
 /**
  * pathまたはidからページ情報を得る
  */
-px2proj.get_page_info('/', function(value){
+$px2proj->get_page_info('/', function(value){
 	console.log(value);
 });
 
 /**
  * 親ページのIDを取得する
  */
-px2proj.get_parent('/sample_pages/', function(value){
+$px2proj->get_parent('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
  * 子階層のページの一覧を取得する
  */
-px2proj.get_children('/', function(value){
+$px2proj->get_children('/', function(value){
 	console.log(value);
 });
 /**
  * 子階層のページの一覧を、filterを無効にして取得する
  */
-px2proj.get_children('/', {filter: false}, function(value){
+$px2proj->get_children('/', {filter: false}, function(value){
 	console.log(value);
 });
 
 /**
  * 同じ階層のページの一覧を取得する
  */
-px2proj.get_bros('/sample_pages/', function(value){
+$px2proj->get_bros('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
  * 同じ階層のページの一覧を、filterを無効にして取得する
  */
-px2proj.get_bros('/sample_pages/', {filter: false}, function(value){
+$px2proj->get_bros('/sample_pages/', {filter: false}, function(value){
 	console.log(value);
 });
 
 /**
  * 同じ階層の次のページのIDを取得する
  */
-px2proj.get_bros_next('/sample_pages/', function(value){
+$px2proj->get_bros_next('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
  * 同じ階層の次のページのIDを、filterを無効にして取得する
  */
-px2proj.get_bros_next('/sample_pages/', {filter: false}, function(value){
+$px2proj->get_bros_next('/sample_pages/', {filter: false}, function(value){
 	console.log(value);
 });
 
 /**
  * 同じ階層の前のページのIDを取得する
  */
-px2proj.get_bros_prev('/sample_pages/', function(value){
+$px2proj->get_bros_prev('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
  * 同じ階層の前のページのIDを、filterを無効にして取得する
  */
-px2proj.get_bros_prev('/sample_pages/', {filter: false}, function(value){
+$px2proj->get_bros_prev('/sample_pages/', {filter: false}, function(value){
 	console.log(value);
 });
 
 /**
  * 次のページのIDを取得する
  */
-px2proj.get_next('/sample_pages/', function(value){
+$px2proj->get_next('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
  * 次のページのIDを、filterを無効にして取得する
  */
-px2proj.get_next('/sample_pages/', {filter: false}, function(value){
+$px2proj->get_next('/sample_pages/', {filter: false}, function(value){
 	console.log(value);
 });
 
 /**
  * 前のページのIDを取得する
  */
-px2proj.get_prev('/sample_pages/', function(value){
+$px2proj->get_prev('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
  * 前のページのIDを、filterを無効にして取得する
  */
-px2proj.get_prev('/sample_pages/', {filter: false}, function(value){
+$px2proj->get_prev('/sample_pages/', {filter: false}, function(value){
 	console.log(value);
 });
 
 /**
  * パンくず配列を取得する
  */
-px2proj.get_breadcrumb_array('/sample_pages/', function(value){
+$px2proj->get_breadcrumb_array('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
  * ダイナミックパス情報を得る
  */
-px2proj.get_dynamic_path_info('/sample_pages/', function(value){
+$px2proj->get_dynamic_path_info('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
  * ダイナミックパスに値をバインドする
  */
-px2proj.bind_dynamic_path_param('/dynamicPath/{*}', {'':'abc.html'}, function(value){
+$px2proj->bind_dynamic_path_param('/dynamicPath/{*}', {'':'abc.html'}, function(value){
 	console.log(value);
 });
 
 /**
  * role を取得する
  */
-px2proj.get_role('/sample_pages/actor1.html', function(role){
+$px2proj->get_role('/sample_pages/actor1.html', function(role){
 	console.log(role);
 });
 
 /**
  * Actor のページID一覧を取得する
  */
-px2proj.get_actors('/sample_pages/role.html', function(actors){
+$px2proj->get_actors('/sample_pages/role.html', function(actors){
 	console.log(actors);
 });
 
 /**
  * get home directory path
  */
-px2proj.get_realpath_homedir(function(value){
+$px2proj->get_realpath_homedir(function(value){
 	console.log(value);
 })
 
 /**
  * コンテンツルートディレクトリのパス(=install path) を取得する
  */
-px2proj.get_path_controot(function(value){
+$px2proj->get_path_controot(function(value){
 	console.log(value);
 });
 
 /**
  * DOCUMENT_ROOT のパスを取得する
  */
-px2proj.get_realpath_docroot(function(value){
+$px2proj->get_realpath_docroot(function(value){
 	console.log(value);
 });
 
 /**
  * get content path
  */
-px2proj.get_path_content('/', function(value){
+$px2proj->get_path_content('/', function(value){
 	console.log(value);
 });
 
 /**
  * ローカルリソースディレクトリのパスを得る
  */
-px2proj.path_files('/', '/images/sample.png', function(value){
+$px2proj->path_files('/', '/images/sample.png', function(value){
 	console.log(value);
 });
 
 /**
  * ローカルリソースディレクトリのサーバー内部パスを得る
  */
-px2proj.realpath_files('/', '/images/sample.png', function(value){
+$px2proj->realpath_files('/', '/images/sample.png', function(value){
 	console.log(value);
 });
 
 /**
  * ローカルリソースのキャッシュディレクトリのパスを得る
  */
-px2proj.path_files_cache('/', '/images/sample.png', function(value){
+$px2proj->path_files_cache('/', '/images/sample.png', function(value){
 	console.log(value);
 });
 
 /**
  * ローカルリソースのキャッシュディレクトリのサーバー内部パスを得る
  */
-px2proj.realpath_files_cache('/', '/images/sample.png', function(value){
+$px2proj->realpath_files_cache('/', '/images/sample.png', function(value){
 	console.log(value);
 });
 
 /**
  * コンテンツ別の非公開キャッシュディレクトリのサーバー内部パスを得る
  */
-px2proj.realpath_files_private_cache('/', '/images/sample.png', function(value){
+$px2proj->realpath_files_private_cache('/', '/images/sample.png', function(value){
 	console.log(value);
 });
 
 /**
  * domain を取得する
  */
-px2proj.get_domain(function(value){
+$px2proj->get_domain(function(value){
 	console.log(value);
 });
 
 /**
  * directory_index(省略できるファイル名) の一覧を得る
  */
-px2proj.get_directory_index(function(value){
+$px2proj->get_directory_index(function(value){
 	console.log(value);
 });
 
 /**
  * 最も優先されるインデックスファイル名を得る
  */
-px2proj.get_directory_index_primary(function(value){
+$px2proj->get_directory_index_primary(function(value){
 	console.log(value);
 });
 
 /**
  * ファイルの処理方法を調べる
  */
-px2proj.get_path_proc_type('/sample_pages/', function(value){
+$px2proj->get_path_proc_type('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
  * リンク先のパスを生成する
  */
-px2proj.href('/sample_pages/', function(value){
+$px2proj->href('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
  * パスがダイナミックパスにマッチするか調べる
  */
-px2proj.is_match_dynamic_path('/sample_pages/', function(value){
+$px2proj->is_match_dynamic_path('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
  * ページが、パンくず内に存在しているか調べる
  */
-px2proj.is_page_in_breadcrumb('/sample_pages/', '/', function(value){
+$px2proj->is_page_in_breadcrumb('/sample_pages/', '/', function(value){
 	console.log(value);
 });
 
 /**
  * 除外ファイルか調べる
  */
-px2proj.is_ignore_path('/sample_pages/', function(value){
+$px2proj->is_ignore_path('/sample_pages/', function(value){
 	console.log(value);
 });
 
@@ -343,7 +353,7 @@ px2proj.is_ignore_path('/sample_pages/', function(value){
 /**
  * パブリッシュする
  */
-px2proj.publish({
+$px2proj->publish({
 	"path_region": "/path/region/",
 	"paths_region": [
 		"/path/region1/",
@@ -365,7 +375,7 @@ px2proj.publish({
 /**
  * キャッシュを削除する
  */
-px2proj.clearcache({
+$px2proj->clearcache({
 	"success": function(output){
 		// console.log(output);
 	},
@@ -377,15 +387,13 @@ px2proj.clearcache({
 
 ### PHPバイナリのパスを指定する場合 - Specifying path to PHP binary
 
-```js
-var px2proj = require('px2agent').createProject(
-  './px_execute.php',
-  {
-	'bin': '/path/to/php',
-	'ini': '/path/to/php.ini',
-	'extension_dir': '/path/to/ext/'
-  }
-);
+```php
+$px2agent = new picklesFramework2\px2agent\px2agent( array(
+    'bin' => '/path/to/php',
+    'ini' => '/path/to/php.ini',
+    'extension_dir' => '/path/to/ext/',
+) );
+$px2proj = $px2agent->createProject('/path/to/.px_execute.php');
 ```
 
 

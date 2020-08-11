@@ -16,8 +16,8 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 	 */
 	public function testCreateInstance(){
 		$px2agent = new picklesFramework2\px2agent\px2agent();
-		$px2project = $px2agent->createProject();
-		$this->assertEquals( is_object($px2project), true );
+		$px2proj = $px2agent->createProject(__DIR__.'/testData/htdocs1/.px_execute.php');
+		$this->assertEquals( is_object($px2proj), true );
 	}
 
 }
