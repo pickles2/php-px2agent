@@ -1,0 +1,37 @@
+{
+    "name": "pickles2/px2agent",
+    "description": "Pickles 2 と PHP スクリプトを仲介するAPIを提供します。",
+    "keywords": ["pickles2"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomoya Koyanagi",
+            "email": "tomk79@gmail.com"
+        }
+    ],
+    "scripts":{
+        "test": [
+            "php ./vendor/phpunit/phpunit/phpunit"
+        ]
+    } ,
+    "minimum-stability": "dev",
+    "prefer-stable": false,
+    "repositories": [
+    ],
+    "require": {
+        "php": ">=5.4.0" ,
+        "ext-json": "*",
+        "tomk79/filesystem": "~1.0",
+        "tomk79/request": "~1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.1",
+        "pickles2/px-fw-2.x": "~2.0" 
+    },
+    "autoload": {
+        "files": [
+            "php/px2agent.php",
+            "php/px2project.php"
+        ]
+    }
+}
