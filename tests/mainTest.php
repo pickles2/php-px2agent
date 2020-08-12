@@ -2,7 +2,7 @@
 /**
  * test for pickles2/px2agent
  */
-class defaultTest extends PHPUnit_Framework_TestCase{
+class mainTest extends PHPUnit_Framework_TestCase{
 	private $fs;
 	private $factory;
 
@@ -142,57 +142,59 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // });
 
 
-// describe('ページ情報を取得するテスト', function() {
-// 	var pj = getProject('htdocs1');
 
-// 	it("path '/' のページ情報を取得する", function(done) {
-// 		this.timeout(60*1000);
-// 		pj.get_page_info( '/', function( page_info ){
-// 			// var_dump(page_info);
-// 			$this->assertEquals( typeof(page_info), typeof({}) );
-// 			$this->assertEquals( page_info.id, '' );
-// 			$this->assertEquals( page_info.title, 'HOME' );
-// 			$this->assertEquals( page_info.path, '/index.html' );
-// 			done();
-// 		} );
-// 	});
 
-// 	it("id '' のページ情報を取得する", function(done) {
-// 		this.timeout(60*1000);
-// 		pj.get_page_info( '', function( page_info ){
-// 			// var_dump(page_info);
-// 			$this->assertEquals( typeof(page_info), typeof({}) );
-// 			$this->assertEquals( page_info.id, '' );
-// 			$this->assertEquals( page_info.title, 'HOME' );
-// 			$this->assertEquals( page_info.path, '/index.html' );
-// 			done();
-// 		} );
-// 	});
+	/**
+	 * ページ情報を取得するテスト: path '/' のページ情報を取得する
+	 */
+	public function testGettingPageInfo_slash(){
+		$px2proj = $this->factory->getProject('htdocs1');
+		$page_info = $px2proj->get_page_info('/');
+		// var_dump($page_info);
+		$this->assertTrue( is_object($page_info) );
+		$this->assertEquals( $page_info->id, '' );
+		$this->assertEquals( $page_info->title, 'HOME' );
+		$this->assertEquals( $page_info->path, '/index.html' );
+	}
 
-// 	it("path '/actors/role.html' のページ情報を取得する", function(done) {
-// 		this.timeout(60*1000);
-// 		pj.get_page_info( '/actors/role.html', function( page_info ){
-// 			// var_dump(page_info);
-// 			$this->assertEquals( typeof(page_info), typeof({}) );
-// 			$this->assertEquals( page_info.id, 'role-page' );
-// 			$this->assertEquals( page_info.path, '/actors/role.html' );
-// 			done();
-// 		} );
-// 	});
+	/**
+	 * ページ情報を取得するテスト: id '' のページ情報を取得する
+	 */
+	public function testGettingPageInfo_0byteString(){
+		$px2proj = $this->factory->getProject('htdocs1');
+		$page_info = $px2proj->get_page_info('');
+		// var_dump($page_info);
+		$this->assertTrue( is_object($page_info) );
+		$this->assertEquals( $page_info->id, '' );
+		$this->assertEquals( $page_info->title, 'HOME' );
+		$this->assertEquals( $page_info->path, '/index.html' );
+	}
 
-// 	it("path '/actors/actor-1.html' のページ情報を取得する", function(done) {
-// 		this.timeout(60*1000);
-// 		pj.get_page_info( '/actors/actor-1.html', function( page_info ){
-// 			// var_dump(page_info);
-// 			$this->assertEquals( typeof(page_info), typeof({}) );
-// 			$this->assertEquals( page_info.id, 'actor-1' );
-// 			$this->assertEquals( page_info.path, '/actors/actor-1.html' );
-// 			$this->assertEquals( page_info.role, 'role-page' );
-// 			done();
-// 		} );
-// 	});
+	/**
+	 * ページ情報を取得するテスト: path '/actors/role.html' のページ情報を取得する
+	 */
+	public function testGettingPageInfo_actors_role(){
+		$px2proj = $this->factory->getProject('htdocs1');
+		$page_info = $px2proj->get_page_info('/actors/role.html');
+		// var_dump($page_info);
+		$this->assertTrue( is_object($page_info) );
+		$this->assertEquals( $page_info->id, 'role-page' );
+		$this->assertEquals( $page_info->path, '/actors/role.html' );
+	}
 
-// });
+	/**
+	 * ページ情報を取得するテスト: path '/actors/actor-1.html' のページ情報を取得する
+	 */
+	public function testGettingPageInfo_actors_actor(){
+		$px2proj = $this->factory->getProject('htdocs1');
+		$page_info = $px2proj->get_page_info('/actors/actor-1.html');
+		// var_dump($page_info);
+		$this->assertTrue( is_object($page_info) );
+		$this->assertEquals( $page_info->id, 'actor-1' );
+		$this->assertEquals( $page_info->path, '/actors/actor-1.html' );
+		$this->assertEquals( $page_info->role, 'role-page' );
+	}
+
 
 
 // describe('親ページのページIDを取得する', function() {
@@ -574,7 +576,7 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // 		pj.get_realpath_homedir( function( path_home_dir ){
 // 			// var_dump(path_home_dir);
 // 			$this->assertEquals( typeof(path_home_dir), typeof('') );
-// 			$this->assertEquals( fs.realpathSync(path_home_dir), fs.realpathSync(__dirname+'/testData/htdocs1/px-files/') );
+// 			$this->assertEquals( fs.realpathSync(path_home_dir), fs.realpathSync(__DIR__.'/testData/htdocs1/px-files/') );
 // 			done();
 // 		} );
 // 	});
@@ -603,7 +605,7 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // 		pj.get_realpath_docroot( function( path_docroot ){
 // 			// var_dump(path_docroot);
 // 			$this->assertEquals( typeof(path_docroot), typeof('') );
-// 			$this->assertEquals( fs.realpathSync(path_docroot), fs.realpathSync(__dirname+'/testData/htdocs1/') );
+// 			$this->assertEquals( fs.realpathSync(path_docroot), fs.realpathSync(__DIR__.'/testData/htdocs1/') );
 // 			done();
 // 		} );
 // 	});
@@ -669,7 +671,7 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // 		this.timeout(60*1000);
 // 		pj.realpath_files( '/', '/images/test.png', function( path_content ){
 // 			// var_dump(path_docroot);
-// 			$this->assertEquals( path.resolve(path_content), path.resolve(__dirname+'/testData/htdocs1/'+'/index_files/images/test.png') );
+// 			$this->assertEquals( path.resolve(path_content), path.resolve(__DIR__.'/testData/htdocs1/'+'/index_files/images/test.png') );
 // 			done();
 // 		} );
 // 	});
@@ -678,7 +680,7 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // 		this.timeout(60*1000);
 // 		pj.realpath_files( '/', null, function( path_content ){
 // 			// var_dump(path_docroot);
-// 			$this->assertEquals( path.resolve(path_content), path.resolve(__dirname+'/testData/htdocs1/'+'/index_files/') );
+// 			$this->assertEquals( path.resolve(path_content), path.resolve(__DIR__.'/testData/htdocs1/'+'/index_files/') );
 // 			done();
 // 		} );
 // 	});
@@ -687,7 +689,7 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // 		this.timeout(60*1000);
 // 		pj.realpath_files( '/sample_pages/page1/3.html', '', function( path_content ){
 // 			// var_dump(path_content);
-// 			$this->assertEquals( path.resolve(path_content), path.resolve(__dirname+'/testData/htdocs1/'+'/sample_pages/page1/3_files/') );
+// 			$this->assertEquals( path.resolve(path_content), path.resolve(__DIR__.'/testData/htdocs1/'+'/sample_pages/page1/3_files/') );
 // 			done();
 // 		} );
 // 	});
@@ -717,7 +719,7 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // 		this.timeout(60*1000);
 // 		pj.realpath_files_cache( '/', '/sample.png', function( realpath ){
 // 			// var_dump(realpath);
-// 			$this->assertEquals( path.resolve( realpath ), path.resolve( __dirname+'/testData/htdocs1/caches/c/index_files/sample.png' ) );
+// 			$this->assertEquals( path.resolve( realpath ), path.resolve( __DIR__.'/testData/htdocs1/caches/c/index_files/sample.png' ) );
 // 			done();
 // 		} );
 // 	});
@@ -732,7 +734,7 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // 		this.timeout(60*1000);
 // 		pj.realpath_files_private_cache( '/', '/sample.png', function( realpath ){
 // 			// var_dump(realpath);
-// 			$this->assertEquals( path.resolve( realpath ), path.resolve( __dirname+'/testData/htdocs1/px-files/_sys/ram/caches/c/index_files/sample.png' ) );
+// 			$this->assertEquals( path.resolve( realpath ), path.resolve( __DIR__.'/testData/htdocs1/px-files/_sys/ram/caches/c/index_files/sample.png' ) );
 // 			done();
 // 		} );
 // 	});
@@ -950,35 +952,28 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // describe('パブリッシュするテスト', function() {
 // 	var pj = getProject('htdocs1');
 
-// 	it("パブリッシュする", function(done) {
-// 		this.timeout(2*60*1000);
-// 		pj.publish({
-// 			"success": function(output){
-// 				// var_dump(output);
-// 			},
-// 			"complete": function(output){
-// 				// var_dump(output);
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), true );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/alert_log.csv'), true );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), true );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), true );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), true );
+	/**
+	 * パブリッシュするテスト: パブリッシュする
+	 */
+	public function testPublish(){
+		$px2proj = $this->factory->getProject('htdocs1');
+		$output = $px2proj->publish(array());
+		// var_dump($output);
+		clearstatcache();
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), true );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/alert_log.csv'), true );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), true );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), true );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), true );
 
-// 				var html = fs.readFileSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html');
-// 				html = html.toString();
-// 				// var_dump(html);
-// 				var versionRegExp = '5\.6\.[78]';
-// 				if( process.platform != 'darwin' && process.platform != 'win32' ){
-// 					versionRegExp = '[0-9]+\.[0-9]+\.[0-9]+'
-// 				}
-// 				var matched = html.match(new RegExp('PHP Version \=\> '+versionRegExp));
-// 				$this->assertNotEquals(matched, null);
+		$html = file_get_contents(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html');
+		// var_dump($html);
+		$versionRegExp = '[0-9]+\.[0-9]+\.[0-9]+';
+		$match_result = preg_match('/PHP Version \=\> '.$versionRegExp.'/is', $html, $matched);
+		$this->assertNotEquals($matched, null);
+	}
 
-// 				done();
-// 			}
-// 		});
-// 	});
 
 // 	it("/common/ ディレクトリのみパブリッシュする", function(done) {
 // 		this.timeout(2*60*1000);
@@ -989,12 +984,12 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // 			},
 // 			"complete": function(output){
 // 				// var_dump(output);
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), true );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), false );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), false );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'), true );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), true );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), true );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), false );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), false );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'), true );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), true );
 
 // 				done();
 // 			}
@@ -1011,12 +1006,12 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // 			},
 // 			"complete": function(output){
 // 				// var_dump(output);
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), true );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), true );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), true );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'), false );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), true );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), true );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), true );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), true );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'), false );
+// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), true );
 
 // 				done();
 // 			}
@@ -1372,27 +1367,19 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // });
 
 
-// describe('キャッシュを削除するテスト', function() {
-// 	var pj = getProject('htdocs1');
-
-// 	it("キャッシュを削除する", function(done) {
-// 		this.timeout(60*1000);
-// 		pj.clearcache({
-// 			"success": function(output){
-// 				// var_dump(output);
-// 			},
-// 			"complete":function(output){
-// 				// var_dump(output);
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), false );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/alert_log.csv'), false );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), false );
-// 				$this->assertEquals( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/.gitkeep'), true );
-// 				done();
-// 			}
-// 		});
-// 	});
-
-// });
+	/**
+	 * キャッシュを削除するテスト
+	 */
+	public function testClearcache(){
+		$px2proj = $this->factory->getProject('htdocs1');
+		$output = $px2proj->clearcache();
+		// var_dump($output);
+		clearstatcache();
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), false );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/alert_log.csv'), false );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), false );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/.gitkeep'), true );
+	}
 
 }

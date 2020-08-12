@@ -132,7 +132,7 @@ class px2project{
 				array_push($aryParam, urlencode($idx).'='.urlencode($param[$idx]) );
 			}
 			if(!count($aryParam)){return '';}
-			return '&'+implode('&', $aryParam);
+			return '&'.implode('&', $aryParam);
 		})($param);
 
 		$errorMsg = null;
@@ -472,7 +472,7 @@ class px2project{
 		}
 
 		// path_region
-		if( !$opt['path_region'] ){
+		if( !array_key_exists('path_region', $opt) || !$opt['path_region'] ){
 			$opt['path_region'] = '';
 		}
 
@@ -500,7 +500,7 @@ class px2project{
 
 		// keep_cache
 		$str_keep_cache = '';
-		if( $opt['keep_cache'] ){
+		if( array_key_exists('keep_cache', $opt) && $opt['keep_cache'] ){
 			$str_keep_cache = '&keep_cache=1';
 		}
 
