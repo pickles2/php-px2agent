@@ -53,337 +53,238 @@ $px2proj = $px2agent->createProject('/path/to/.px_execute.php');
 /**
  * Pickles 2 にクエリを投げて、結果を受け取る (汎用)
  */
-$px2proj->query('/?PX=phpinfo', {
+$data = $px2proj->query('/?PX=phpinfo', array(
 	"output": "json",
-	"userAgent": "Mozilla/5.0",
-	"success": function(data){
-		console.log(data);
-	},
-	"complete": function(data, code){
-		console.log(data, code);
-	}
-});
+));
 
 /**
  * PXコマンドを実行する
  */
-$px2proj->px_command(
+$result = $px2proj->px_command(
     'publish.run',
     '/index.html',
-    {path_region: "/region/"},
-    function(result){
-    	console.log(result);
-    }
+    array('path_region' => "/region/")
 );
 
 /**
  * バージョン番号を取得する
  */
-$px2proj->get_version(function(value){
-	console.log(value);
-});
+$value = $px2proj->get_version();
 
 
 /**
  * configデータを取得する
  */
-$px2proj->get_config(function(value){
-	console.log(value);
-});
+$value = $px2proj->get_config();
 
 /**
  * サイトマップデータを取得する
  */
-$px2proj->get_sitemap(function(value){
-	console.log(value);
-});
+$value = $px2proj->get_sitemap();
 
 /**
  * pathまたはidからページ情報を得る
  */
-$px2proj->get_page_info('/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_page_info('/');
 
 /**
  * 親ページのIDを取得する
  */
-$px2proj->get_parent('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_parent('/sample_pages/');
 
 /**
  * 子階層のページの一覧を取得する
  */
-$px2proj->get_children('/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_children('/');
+
 /**
  * 子階層のページの一覧を、filterを無効にして取得する
  */
-$px2proj->get_children('/', {filter: false}, function(value){
-	console.log(value);
-});
+$value = $px2proj->get_children('/', array('filter' => false));
 
 /**
  * 同じ階層のページの一覧を取得する
  */
-$px2proj->get_bros('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_bros('/sample_pages/');
 
 /**
  * 同じ階層のページの一覧を、filterを無効にして取得する
  */
-$px2proj->get_bros('/sample_pages/', {filter: false}, function(value){
-	console.log(value);
-});
+$value = $px2proj->get_bros('/sample_pages/', array('filter' => false));
 
 /**
  * 同じ階層の次のページのIDを取得する
  */
-$px2proj->get_bros_next('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_bros_next('/sample_pages/');
 
 /**
  * 同じ階層の次のページのIDを、filterを無効にして取得する
  */
-$px2proj->get_bros_next('/sample_pages/', {filter: false}, function(value){
-	console.log(value);
-});
+$value = $px2proj->get_bros_next('/sample_pages/', array('filter' => false));
 
 /**
  * 同じ階層の前のページのIDを取得する
  */
-$px2proj->get_bros_prev('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_bros_prev('/sample_pages/');
 
 /**
  * 同じ階層の前のページのIDを、filterを無効にして取得する
  */
-$px2proj->get_bros_prev('/sample_pages/', {filter: false}, function(value){
-	console.log(value);
-});
+$value = $px2proj->get_bros_prev('/sample_pages/', array('filter' => false));
 
 /**
  * 次のページのIDを取得する
  */
-$px2proj->get_next('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_next('/sample_pages/');
 
 /**
  * 次のページのIDを、filterを無効にして取得する
  */
-$px2proj->get_next('/sample_pages/', {filter: false}, function(value){
-	console.log(value);
-});
+$value = $px2proj->get_next('/sample_pages/', array('filter' => false));
 
 /**
  * 前のページのIDを取得する
  */
-$px2proj->get_prev('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_prev('/sample_pages/');
 
 /**
  * 前のページのIDを、filterを無効にして取得する
  */
-$px2proj->get_prev('/sample_pages/', {filter: false}, function(value){
-	console.log(value);
-});
+$value = $px2proj->get_prev('/sample_pages/', array('filter' => false));
 
 /**
  * パンくず配列を取得する
  */
-$px2proj->get_breadcrumb_array('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_breadcrumb_array('/sample_pages/');
 
 /**
  * ダイナミックパス情報を得る
  */
-$px2proj->get_dynamic_path_info('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_dynamic_path_info('/sample_pages/');
 
 /**
  * ダイナミックパスに値をバインドする
  */
-$px2proj->bind_dynamic_path_param('/dynamicPath/{*}', {'':'abc.html'}, function(value){
-	console.log(value);
-});
+$value = $px2proj->bind_dynamic_path_param('/dynamicPath/{*}', array('' => 'abc.html'));
 
 /**
  * role を取得する
  */
-$px2proj->get_role('/sample_pages/actor1.html', function(role){
-	console.log(role);
-});
+$role = $px2proj->get_role('/sample_pages/actor1.html');
 
 /**
  * Actor のページID一覧を取得する
  */
-$px2proj->get_actors('/sample_pages/role.html', function(actors){
-	console.log(actors);
-});
+$actors = $px2proj->get_actors('/sample_pages/role.html');
 
 /**
  * get home directory path
  */
-$px2proj->get_realpath_homedir(function(value){
-	console.log(value);
-})
+$value = $px2proj->get_realpath_homedir();
 
 /**
  * コンテンツルートディレクトリのパス(=install path) を取得する
  */
-$px2proj->get_path_controot(function(value){
-	console.log(value);
-});
+$value = $px2proj->get_path_controot();
 
 /**
  * DOCUMENT_ROOT のパスを取得する
  */
-$px2proj->get_realpath_docroot(function(value){
-	console.log(value);
-});
+$value = $px2proj->get_realpath_docroot();
 
 /**
  * get content path
  */
-$px2proj->get_path_content('/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_path_content('/');
 
 /**
  * ローカルリソースディレクトリのパスを得る
  */
-$px2proj->path_files('/', '/images/sample.png', function(value){
-	console.log(value);
-});
+$value = $px2proj->path_files('/', '/images/sample.png');
 
 /**
  * ローカルリソースディレクトリのサーバー内部パスを得る
  */
-$px2proj->realpath_files('/', '/images/sample.png', function(value){
-	console.log(value);
-});
+$value = $px2proj->realpath_files('/', '/images/sample.png');
 
 /**
  * ローカルリソースのキャッシュディレクトリのパスを得る
  */
-$px2proj->path_files_cache('/', '/images/sample.png', function(value){
-	console.log(value);
-});
+$value = $px2proj->path_files_cache('/', '/images/sample.png');
 
 /**
  * ローカルリソースのキャッシュディレクトリのサーバー内部パスを得る
  */
-$px2proj->realpath_files_cache('/', '/images/sample.png', function(value){
-	console.log(value);
-});
+$value = $px2proj->realpath_files_cache('/', '/images/sample.png');
 
 /**
  * コンテンツ別の非公開キャッシュディレクトリのサーバー内部パスを得る
  */
-$px2proj->realpath_files_private_cache('/', '/images/sample.png', function(value){
-	console.log(value);
-});
+$value = $px2proj->realpath_files_private_cache('/', '/images/sample.png');
 
 /**
  * domain を取得する
  */
-$px2proj->get_domain(function(value){
-	console.log(value);
-});
+$value = $px2proj->get_domain();
 
 /**
  * directory_index(省略できるファイル名) の一覧を得る
  */
-$px2proj->get_directory_index(function(value){
-	console.log(value);
-});
+$value = $px2proj->get_directory_index();
 
 /**
  * 最も優先されるインデックスファイル名を得る
  */
-$px2proj->get_directory_index_primary(function(value){
-	console.log(value);
-});
+$value = $px2proj->get_directory_index_primary();
 
 /**
  * ファイルの処理方法を調べる
  */
-$px2proj->get_path_proc_type('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->get_path_proc_type('/sample_pages/');
 
 /**
  * リンク先のパスを生成する
  */
-$px2proj->href('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->href('/sample_pages/');
 
 /**
  * パスがダイナミックパスにマッチするか調べる
  */
-$px2proj->is_match_dynamic_path('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->is_match_dynamic_path('/sample_pages/');
 
 /**
  * ページが、パンくず内に存在しているか調べる
  */
-$px2proj->is_page_in_breadcrumb('/sample_pages/', '/', function(value){
-	console.log(value);
-});
+$value = $px2proj->is_page_in_breadcrumb('/sample_pages/', '/');
 
 /**
  * 除外ファイルか調べる
  */
-$px2proj->is_ignore_path('/sample_pages/', function(value){
-	console.log(value);
-});
+$value = $px2proj->is_ignore_path('/sample_pages/');
 
 
 /**
  * パブリッシュする
  */
-$px2proj->publish({
-	"path_region": "/path/region/",
-	"paths_region": [
+$output = $px2proj->publish( array(
+	"path_region" => "/path/region/",
+	"paths_region" => array(
 		"/path/region1/",
 		"/path/region2/"
-	],
-	"paths_ignore": [
+	),
+	"paths_ignore" => array(
 		"/path/region/ignored/1/",
 		"/path/region/ignored/2/"
-	],
-	"keep_cache": 1,
-	"success": function(output){
-		// console.log(output);
-	},
-	"complete":function(output){
-		console.log(output);
-	}
-});
+	),
+	"keep_cache" => 1,
+) );
 
 /**
  * キャッシュを削除する
  */
-$px2proj->clearcache({
-	"success": function(output){
-		// console.log(output);
-	},
-	"complete":function(output){
-		console.log(output);
-	}
-});
+$output = $px2proj->clearcache();
 ```
+
 
 ### PHPバイナリのパスを指定する場合 - Specifying path to PHP binary
 
@@ -404,19 +305,18 @@ $px2proj = $px2agent->createProject('/path/to/.px_execute.php');
 ```bash
 $ cd {$project_root}
 $ composer install
-$ npm install
 ```
 
 ### テスト - Test
 
 ```bash
-$ npm test
+$ composer test
 ```
 
 ### ドキュメント出力 - JSDoc
 
 ```bash
-$ npm run documentation
+$ composer run-script documentation
 ```
 
 
