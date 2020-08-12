@@ -25,17 +25,18 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals( $result, 1 );
 	}
 
-// 	it("configを取得するテスト", function(done) {
-// 		this.timeout(60*1000);
-// 		pj.get_config(function(conf){
-// 			// console.log(conf);
-// 			assert.equal(conf.name, 'px2agent test htdocs1');
-// 			assert.equal(conf.allow_pxcommands, 1);
-// 			assert.equal(typeof(conf.funcs), typeof({}));
-// 			assert.equal(typeof(conf.funcs.processor.html), typeof({}));
-// 			done();
-// 		});
-// 	});
+	/**
+	 * configを取得するテスト
+	 */
+	public function testGettingConfig(){
+		$px2proj = $this->factory->getProject('htdocs1');
+		$conf = $px2proj->get_config();
+		// var_dump($conf);
+		$this->assertEquals($conf->name, 'px2agent test htdocs1');
+		$this->assertEquals($conf->allow_pxcommands, 1);
+		$this->assertTrue(is_object($conf->funcs));
+		$this->assertTrue(is_object($conf->funcs->processor->html));
+	}
 
 // 	it("phpinfo() を取得する", function(done) {
 // 		this.timeout(60*1000);

@@ -160,12 +160,12 @@ class px2project{
 	}
 
 
-	// /**
-	//  * configデータを取得する
-	//  */
-	// this.get_config = function(cb){
-	// 	return apiGet('api.get.config', '/', {}, cb);
-	// }
+	/**
+	 * configデータを取得する
+	 */
+	public function get_config(){
+		return $this->apiGet('api.get.config', '/', array());
+	}
 
 	// /**
 	//  * サイトマップデータを取得する
