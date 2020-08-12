@@ -6,15 +6,15 @@ namespace picklesFramework2\px2agent;
  */
 class px2project{
 	private $main;
-	private $php_self;
+	private $path_entry_script;
 	private $options;
 
 	/**
 	 * Constructor
 	 */
-	public function __construct($main, $php_self, $options){
+	public function __construct($main, $path_entry_script, $options){
 		$this->main = $main;
-		$this->php_self = $php_self;
+		$this->path_entry_script = $path_entry_script;
 		$this->options = (array) $options;
 	}
 
@@ -22,144 +22,155 @@ class px2project{
 	/**
 	 * Pickles 2 にクエリを投げて、結果を受け取る (汎用)
 	 */
-	public function query($path, $opt = array()){
-		// opt = opt||{};
-		// opt.output = opt.output||opt.o||undefined;
-		// opt.userAgent = opt.userAgent||opt.u||undefined;
-		// opt.success = opt.success||function(){};
-		// opt.error = opt.error||function(){};
-		// opt.complete = opt.complete||function(){};
+	public function query($request_path, $options = null, &$return_var = null){
+		$path_cmd_php = 'php';
+		if( array_key_exists('bin', $this->options) && strlen($this->options['bin']) ){
+			$path_cmd_php = $this->options['bin'];
+		}
+		$path_cmd_php_ini = null;
+		if( array_key_exists('ini', $this->options) && strlen($this->options['ini']) ){
+			$path_cmd_php_ini = $this->options['ini'];
+		}
+		$path_extension_dir = null;
+		if( array_key_exists('extension_dir', $this->options) && strlen($this->options['extension_dir']) ){
+			$path_extension_dir = $this->options['extension_dir'];
+		}
 
-		// var cloptions = [];
-		// if( options.ini ){
-		// 	cloptions.push( '-c' );
-		// 	cloptions.push( options.ini );
-		// }
-		// if( options.extension_dir ){
-		// 	cloptions.push( '-d' );
-		// 	cloptions.push( 'extension_dir='+options.extension_dir );
-		// }
-		// 	// memo:
-		// 	// 	Windows上では、 -c と -d オプションは、this.php_self の前に指定しないと
-		// 	// 	PHPの設定に対して有効にならない。
-		// 	// 	かつ、this.php_self の後に指定しないと、PHPスクリプトがオプションとして取得できない。
-		// 	// 	(ので、パブリッシュのテストが通らなくなる)
-		// 	// 	よって、前後にそれぞれ1回ずつ、計2つ指定しなければいけない。
+		$current_dir = realpath('.');
+		$project_dir = dirname($this->path_entry_script);
 
-		// cloptions.push( this.php_self );
 
-		// // 出力形式
-		// if( opt.output ){
-		// 	cloptions.push( '-o' );
-		// 	cloptions.push( opt.output );
-		// }
+		if(!is_string($request_path)){
+			$this->main->error('Invalid argument supplied for 1st option $request_path in $px2project->query(). It required String value.');
+			return false;
+		}
+		if(!strlen($request_path)){ $request_path = '/'; }
+		if(is_null($options)){ $options = array(); }
+		$php_command = array();
+		array_push( $php_command, addslashes($path_cmd_php) );
+			// ↑ Windows でこれを `escapeshellarg()` でエスケープすると、なぜかエラーに。
 
-		// // USER_AGENT
-		// if( opt.userAgent ){
-		// 	cloptions.push( '-u' );
-		// 	cloptions.push( opt.userAgent );
-		// }
+		if( strlen($path_cmd_php_ini) ){
+			$php_command = array_merge(
+				$php_command,
+				array(
+					'-c', escapeshellarg($path_cmd_php_ini),// ← php.ini のパス
+				)
+			);
+		}
 
-		// // PHPのパス
-		// cloptions.push( '--command-php' );
-		// cloptions.push( options.bin );
-		// if( options.ini ){
-		// 	cloptions.push( '-c' );
-		// 	cloptions.push( options.ini );
-		// }
-		// if( options.extension_dir ){
-		// 	cloptions.push( '-d' );
-		// 	cloptions.push( 'extension_dir='+options.extension_dir );
-		// }
-		// 	// memo:
-		// 	// 	Windows上では、 -c と -d オプションは、this.php_self の前に指定しないと
-		// 	// 	PHPの設定に対して有効にならない。
-		// 	// 	かつ、this.php_self の後に指定しないと、PHPスクリプトがオプションとして取得できない。
-		// 	// 	(ので、パブリッシュのテストが通らなくなる)
-		// 	// 	よって、前後にそれぞれ1回ずつ、計2つ指定しなければいけない。
+		if( strlen($path_extension_dir) ){
+			$php_command = array_merge(
+				$php_command,
+				array(
+					'-d', escapeshellarg($path_extension_dir),// ← php.ini definition
+				)
+			);
+		}
 
-		// cloptions.push( path );
+		array_push($php_command, escapeshellarg( realpath($this->path_entry_script) ));
+		if( array_key_exists('output', $options) && $options['output'] == 'json' ){
+			array_push($php_command, '-o');
+			array_push($php_command, 'json');
+		}
+		if( array_key_exists('user_agent', $options) && strlen($options['user_agent']) ){
+			array_push($php_command, '-u');
+			array_push($php_command, escapeshellarg($options['user_agent']));
+		}
+		array_push($php_command, escapeshellarg($request_path));
 
-		// var data_memo = '';
-		// var rtn = (function(cliParams, opts){
-		// 	cliParams = cliParams || [];
-		// 	opts = opts || {};
-		// 	var child = childProcess.spawn(
-		// 		options.bin,
-		// 		cliParams,
-		// 		opts
-		// 	);
-		// 	return child;
-		// })(
-		// 	cloptions,
-		// 	{}
-		// );
-		// if( opt.success ){ rtn.stdout.on('data', function( data ){
-		// 	opt.success(''+data);
-		// 	data_memo += data;
-		// }); }
-		// if( opt.error ){ rtn.stderr.on('data', function( data ){
-		// 	opt.error(''+data);
-		// 	data_memo += data;
-		// }); }
-		// if( opt.complete ){ rtn.on('close', function( code ){
-		// 	opt.complete(data_memo, code);
-		// }); }
 
-		// return rtn;
+		$cmd = implode( ' ', $php_command );
+
+		// コマンドを実行
+		chdir($project_dir);
+		ob_start();
+		$proc = proc_open($cmd, array(
+			0 => array('pipe','r'),
+			1 => array('pipe','w'),
+			2 => array('pipe','w'),
+		), $pipes);
+		$io = array();
+		foreach($pipes as $idx=>$pipe){
+			$io[$idx] = null;
+			if( $idx >= 1 ){
+				$io[$idx] = stream_get_contents($pipe);
+			}
+			fclose($pipe);
+		}
+		$return_var = proc_close($proc);
+		ob_get_clean();
+
+		$bin = $io[1]; // stdout
+		if( strlen( $io[2] ) ){
+			// $this->error($io[2]); // stderr
+		}
+
+		if( array_key_exists('output', $options) && $options['output'] == 'json' ){
+			$bin = json_decode($bin);
+		}
+
+		chdir($current_dir);
+		return $bin;
+
 	}
 
-	// /**
-	//  * PX=api.*を投げる
-	//  */
-	// function apiGet(cmd, path, param, cb){
-	// 	path = path||'/';
-	// 	param = param||{};
-	// 	param = (function(param){
-	// 		var aryParam = [];
-	// 		for( var idx in param ){
-	// 			aryParam.push( encodeURIComponent(idx)+'='+encodeURIComponent(param[idx]) )
-	// 		}
-	// 		if(!aryParam.length){return '';}
-	// 		return '&'+aryParam.join('&');
-	// 	})(param);
-	// 	cb = cb||function(){};
-	// 	var errorMsg = null;
-	// 	return _this.query(
-	// 		path+'?PX='+cmd+param ,
-	// 		{
-	// 			"error": function(data){
-	// 				if( errorMsg === null ){ errorMsg = ''; }
-	// 				errorMsg += data;
-	// 			},
-	// 			"complete": function(data, code){
-	// 				// console.log(code);
-	// 				try {
-	// 					data = JSON.parse(data);
-	// 				} catch (e) {
-	// 					if( errorMsg === null ){ errorMsg = ''; }
-	// 					errorMsg += 'JSON Parse ERROR: "'+data+'";'
-	// 					data = false;
-	// 				}
-	// 				cb( data, code, errorMsg );
-	// 			}
-	// 		}
-	// 	);
-	// }
+	/**
+	 * PX=api.*を投げる
+	 */
+	protected function apiGet($cmd, $path = '/', $param = array()){
+		if( !strlen($path) ){
+			$path = '/';
+		}
+		if( !$param ){
+			$param = array();
+		}
+		$param = (function($param){
+			$aryParam = array();
+			foreach( $param as $idx=>$row ){
+				array_push($aryParam, urlencode($idx).'='.urlencode($param[$idx]) );
+			}
+			if(!count($aryParam)){return '';}
+			return '&'+implode('&', $aryParam);
+		})($param);
 
-	// /**
-	//  * PXコマンドを実行する
-	//  */
-	// this.px_command = function(cmd, path, param, cb){
-	// 	return apiGet(cmd, path, param, cb);
-	// }
+		$errorMsg = null;
+		$rtn = $this->query(
+			$path.'?PX='.$cmd.$param ,
+			array(
+				// "error": function(data){
+				// 	if( errorMsg === null ){ errorMsg = ''; }
+				// 	errorMsg += data;
+				// },
+				// "complete": function(data, code){
+				// 	// console.log(code);
+				// 	try {
+				// 		data = JSON.parse(data);
+				// 	} catch (e) {
+				// 		if( errorMsg === null ){ errorMsg = ''; }
+				// 		errorMsg += 'JSON Parse ERROR: "'+data+'";'
+				// 		data = false;
+				// 	}
+				// 	cb( data, code, errorMsg );
+				// }
+			)
+		);
+		return $rtn;
+	}
 
-	// /**
-	//  * バージョン番号を取得する
-	//  */
-	// this.get_version = function(cb){
-	// 	return apiGet('api.get.version', '/', {}, cb);
-	// }
+	/**
+	 * PXコマンドを実行する
+	 */
+	public function px_command($cmd, $path, $param){
+		return $this->apiGet($cmd, $path, $param);
+	}
+
+	/**
+	 * バージョン番号を取得する
+	 */
+	public function get_version(){
+		return $this->apiGet('api.get.version', '/', array());
+	}
 
 
 	// /**

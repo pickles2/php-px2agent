@@ -20,7 +20,6 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals( is_object($px2proj), true );
 	}
 
-}
 
 // var assert = require('assert');
 // var px2agent = require('../libs/px2agent');
@@ -48,14 +47,17 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // describe('Pickles 2 API から値を取得するテスト', function() {
 // 	var pj = getProject('htdocs1');
 
-// 	it("バージョン番号を取得するテスト", function(done) {
-// 		this.timeout(60*1000);
-// 		pj.get_version(function(version){
-// 			var matched = version.match(new RegExp('^([0-9]+\\.[0-9]+\\.[0-9]+)(\\-(?:alpha|beta|rc)(?:\.[0-9]+)?)?(\\+nb)?$'));
-// 			assert.notEqual(matched, null);
-// 			done();
-// 		});
-// 	});
+	/**
+	 * バージョン番号を取得するテスト
+	 */
+	public function testGettingVersionNumber(){
+		$px2agent = new picklesFramework2\px2agent\px2agent();
+		$px2proj = $px2agent->createProject(__DIR__.'/testData/htdocs1/.px_execute.php');
+		$version = $px2proj->get_version();
+		var_dump($version);
+		$result = preg_match('/^([0-9]+\\.[0-9]+\\.[0-9]+)(\\-(?:alpha|beta|rc)(?:\.[0-9]+)?)?(\\+nb)?$/is', $version, $matched);
+		$this->assertEquals( $result, 1 );
+	}
 
 // 	it("configを取得するテスト", function(done) {
 // 		this.timeout(60*1000);
@@ -1430,3 +1432,5 @@ class defaultTest extends PHPUnit_Framework_TestCase{
 // 	});
 
 // });
+
+}
