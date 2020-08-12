@@ -949,8 +949,6 @@ class mainTest extends PHPUnit_Framework_TestCase{
 
 
 
-// describe('パブリッシュするテスト', function() {
-// 	var pj = getProject('htdocs1');
 
 	/**
 	 * パブリッシュするテスト: パブリッシュする
@@ -974,51 +972,46 @@ class mainTest extends PHPUnit_Framework_TestCase{
 		$this->assertNotEquals($matched, null);
 	}
 
+	/**
+	 * パブリッシュするテスト: /common/ ディレクトリのみパブリッシュする
+	 */
+	public function testPublish_common_only(){
+		$px2proj = $this->factory->getProject('htdocs1');
+		$output = $px2proj->publish(array(
+			"path_region" => "/common/",
+		));
+		// var_dump($output);
+		clearstatcache();
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), true );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), false );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), false );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'), true );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), true );
+	}
 
-// 	it("/common/ ディレクトリのみパブリッシュする", function(done) {
-// 		this.timeout(2*60*1000);
-// 		pj.publish({
-// 			"path_region": "/common/",
-// 			"success": function(output){
-// 				// var_dump(output);
-// 			},
-// 			"complete": function(output){
-// 				// var_dump(output);
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), true );
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), false );
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), false );
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'), true );
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), true );
+	/**
+	 * パブリッシュするテスト: /common/ ディレクトリのみパブリッシュしない
+	 */
+	public function testPublish_common_only_ignored(){
+		$px2proj = $this->factory->getProject('htdocs1');
+		$output = $px2proj->publish(array(
+			"path_region" => "/",
+			"paths_ignore" => array("/common/"),
+		));
+		// var_dump($output);
+		clearstatcache();
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), true );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), true );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), true );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'), false );
+		$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), true );
+	}
 
-// 				done();
-// 			}
-// 		});
-// 	});
 
-// 	it("/common/ ディレクトリのみパブリッシュしない", function(done) {
-// 		this.timeout(2*60*1000);
-// 		pj.publish({
-// 			"path_region": "/",
-// 			"paths_ignore": ["/common/"],
-// 			"success": function(output){
-// 				// var_dump(output);
-// 			},
-// 			"complete": function(output){
-// 				// var_dump(output);
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), true );
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), true );
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), true );
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'), false );
-// 				$this->assertEquals( file_exists(__DIR__.'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), true );
 
-// 				done();
-// 			}
-// 		});
-// 	});
 
-// });
 
 
 // describe('PHPを異常終了させるテスト', function() {
