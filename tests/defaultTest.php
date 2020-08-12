@@ -4,58 +4,24 @@
  */
 class defaultTest extends PHPUnit_Framework_TestCase{
 	private $fs;
+	private $factory;
 
 	public function setup(){
 		mb_internal_encoding('UTF-8');
 		$this->fs = new tomk79\filesystem();
+		require_once(__DIR__.'/helper/factory.php');
+		$this->factory = new test_helper_factory();
 	}
 
-
-	/**
-	 * テスト
-	 */
-	public function testCreateInstance(){
-		$px2agent = new picklesFramework2\px2agent\px2agent();
-		$px2proj = $px2agent->createProject(__DIR__.'/testData/htdocs1/.px_execute.php');
-		$this->assertEquals( is_object($px2proj), true );
-	}
-
-
-// var assert = require('assert');
-// var px2agent = require('../libs/px2agent');
-// var path = require('path');
-// var fs = require('fs');
-// var nodePhpBin = require('node-php-bin').get({
-// 	'bin': 'php' ,
-// 	'ini': null
-// });
-// var Promise = require("es6-promise").Promise;
-
-// function getProject( testDataName ){
-// 	var options = {
-// 		"bin": nodePhpBin.getPath() ,
-// 		"ini": nodePhpBin.getIniPath() ,
-// 		"extension_dir": nodePhpBin.getExtensionDir()
-// 	};
-// 	// console.log(options);
-// 	return require('../libs/px2agent').createProject(
-// 		path.resolve(__dirname,'./testData/'+testDataName+'/.px_execute.php'),
-// 		options
-// 	);
-// }
-
-// describe('Pickles 2 API から値を取得するテスト', function() {
-// 	var pj = getProject('htdocs1');
 
 	/**
 	 * バージョン番号を取得するテスト
 	 */
 	public function testGettingVersionNumber(){
-		$px2agent = new picklesFramework2\px2agent\px2agent();
-		$px2proj = $px2agent->createProject(__DIR__.'/testData/htdocs1/.px_execute.php');
+		$px2proj = $this->factory->getProject('htdocs1');
 		$version = $px2proj->get_version();
-		var_dump($version);
-		$result = preg_match('/^([0-9]+\\.[0-9]+\\.[0-9]+)(\\-(?:alpha|beta|rc)(?:\.[0-9]+)?)?(\\+nb)?$/is', $version, $matched);
+		// var_dump($version);
+		$result = preg_match('/^([0-9]+\\.[0-9]+\\.[0-9]+)(\\-(?:alpha|beta|rc)(?:\.[0-9]+)?)?(\\+(?:nb|dev))?$/is', $version, $matched);
 		$this->assertEquals( $result, 1 );
 	}
 

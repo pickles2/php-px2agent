@@ -46,6 +46,7 @@ class px2project{
 		}
 		if(!strlen($request_path)){ $request_path = '/'; }
 		if(is_null($options)){ $options = array(); }
+		if(!is_array($options)){ $options = (array) $options; }
 		$php_command = array();
 		array_push( $php_command, addslashes($path_cmd_php) );
 			// ↑ Windows でこれを `escapeshellarg()` でエスケープすると、なぜかエラーに。
@@ -138,21 +139,7 @@ class px2project{
 		$rtn = $this->query(
 			$path.'?PX='.$cmd.$param ,
 			array(
-				// "error": function(data){
-				// 	if( errorMsg === null ){ errorMsg = ''; }
-				// 	errorMsg += data;
-				// },
-				// "complete": function(data, code){
-				// 	// console.log(code);
-				// 	try {
-				// 		data = JSON.parse(data);
-				// 	} catch (e) {
-				// 		if( errorMsg === null ){ errorMsg = ''; }
-				// 		errorMsg += 'JSON Parse ERROR: "'+data+'";'
-				// 		data = false;
-				// 	}
-				// 	cb( data, code, errorMsg );
-				// }
+				"output" => "json",
 			)
 		);
 		return $rtn;
