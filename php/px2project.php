@@ -123,21 +123,22 @@ class px2project{
 		if( !strlen($path) ){
 			$path = '/';
 		}
-		if( !$param ){
+		if( !is_array($param) ){
 			$param = array();
 		}
-		$param = (function($param){
-			$aryParam = array();
-			foreach( $param as $idx=>$row ){
-				array_push($aryParam, urlencode($idx).'='.urlencode($param[$idx]) );
-			}
-			if(!count($aryParam)){return '';}
-			return '&'.implode('&', $aryParam);
-		})($param);
+
+		$tmp_aryParam = array();
+		foreach( $param as $idx=>$row ){
+			array_push($tmp_aryParam, urlencode($idx).'='.urlencode($row) );
+		}
+		$param_str = '';
+		if(count($tmp_aryParam)){
+			$param_str = '&'.implode('&', $tmp_aryParam);
+		}
 
 		$errorMsg = null;
 		$rtn = $this->query(
-			$path.'?PX='.$cmd.$param ,
+			$path.'?PX='.$cmd.$param_str ,
 			array(
 				"output" => "json",
 			)
