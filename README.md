@@ -17,7 +17,7 @@ __pickles2/px2agent__ は、[Pickles 2](https://pickles2.pxt.jp/)  と PHP ス�
 		<a href="https://travis-ci.org/pickles2/php-px2agent"><img src="https://secure.travis-ci.org/pickles2/php-px2agent.svg?branch=master"></a>
 	  </td>
 	  <td align="center">
-		<a href="https://ci.appveyor.com/project/tomk79/php-px2agent"><img src="https://ci.appveyor.com/api/projects/status/jd0dcl2ya2t2nrsa/branch/master?svg=true"></a>
+		<a href="https://ci.appveyor.com/project/tomk79/php-px2agent"><img src="https://ci.appveyor.com/api/projects/status/7tbg9d7fb8yvb4ij/branch/master?svg=true"></a>
 	  </td>
 	</tr>
 	<tr>
@@ -26,7 +26,7 @@ __pickles2/px2agent__ は、[Pickles 2](https://pickles2.pxt.jp/)  と PHP ス�
 		<a href="https://travis-ci.org/pickles2/php-px2agent"><img src="https://secure.travis-ci.org/pickles2/php-px2agent.svg?branch=develop"></a>
 	  </td>
 	  <td align="center">
-		<a href="https://ci.appveyor.com/project/tomk79/php-px2agent"><img src="https://ci.appveyor.com/api/projects/status/jd0dcl2ya2t2nrsa/branch/develop?svg=true"></a>
+		<a href="https://ci.appveyor.com/project/tomk79/php-px2agent"><img src="https://ci.appveyor.com/api/projects/status/7tbg9d7fb8yvb4ij/branch/develop?svg=true"></a>
 	  </td>
 	</tr>
   </tbody>
@@ -323,7 +323,7 @@ $ composer run-script documentation
 
 ## 更新履歴 - Change log
 
-### px2agent v0.0.1 (リリース日未定)
+### pickles2/px2agent v0.0.1 (2020年8月12日)
 
 - Initial Release.
 
