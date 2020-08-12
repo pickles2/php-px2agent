@@ -167,18 +167,18 @@ class px2project{
 		return $this->apiGet('api.get.config', '/', array());
 	}
 
-	// /**
-	//  * サイトマップデータを取得する
-	//  */
-	// this.get_sitemap = function(cb){
-	// 	return apiGet('api.get.sitemap', '/', {}, cb);
-	// }
+	/**
+	 * サイトマップデータを取得する
+	 */
+	public function get_sitemap(){
+		return $this->apiGet('api.get.sitemap', '/', array());
+	}
 
 	// /**
 	//  * pathまたはidからページ情報を得る
 	//  */
-	// this.get_page_info = function(path, cb){
-	// 	return apiGet('api.get.page_info', '/', {
+	// public function get_page_info = function(path, cb){
+	// 	return $this->apiGet('api.get.page_info', '/', {
 	// 		"path":path
 	// 	}, cb);
 	// }
@@ -186,94 +186,94 @@ class px2project{
 	// /**
 	//  * 親ページのIDを取得する
 	//  */
-	// this.get_parent = function(path, cb){
-	// 	return apiGet('api.get.parent', path, {}, cb);
+	// public function get_parent = function(path, cb){
+	// 	return $this->apiGet('api.get.parent', path, {}, cb);
 	// }
 
 	// /**
 	//  * 子階層のページの一覧を取得する
 	//  */
-	// this.get_children = function(path, cb){
+	// public function get_children = function(path, cb){
 	// 	var options = {};
 	// 	if(arguments.length >= 3){
 	// 		options = sitemap_children_params(arguments[1]);
 	// 		cb = arguments[2];
 	// 	}
-	// 	return apiGet('api.get.children', path, options, cb);
+	// 	return $this->apiGet('api.get.children', path, options, cb);
 	// }
 
 	// /**
 	//  * 兄弟ページの一覧を取得する
 	//  */
-	// this.get_bros = function(path, cb){
+	// public function get_bros = function(path, cb){
 	// 	var options = {};
 	// 	if(arguments.length >= 3){
 	// 		options = sitemap_children_params(arguments[1]);
 	// 		cb = arguments[2];
 	// 	}
-	// 	return apiGet('api.get.bros', path, options, cb);
+	// 	return $this->apiGet('api.get.bros', path, options, cb);
 	// }
 
 	// /**
 	//  * 次の兄弟ページを取得する
 	//  */
-	// this.get_bros_next = function(path, cb){
+	// public function get_bros_next = function(path, cb){
 	// 	var options = {};
 	// 	if(arguments.length >= 3){
 	// 		options = sitemap_children_params(arguments[1]);
 	// 		cb = arguments[2];
 	// 	}
-	// 	return apiGet('api.get.bros_next', path, options, cb);
+	// 	return $this->apiGet('api.get.bros_next', path, options, cb);
 	// }
 
 	// /**
 	//  * 前の兄弟ページを取得する
 	//  */
-	// this.get_bros_prev = function(path, cb){
+	// public function get_bros_prev = function(path, cb){
 	// 	var options = {};
 	// 	if(arguments.length >= 3){
 	// 		options = sitemap_children_params(arguments[1]);
 	// 		cb = arguments[2];
 	// 	}
-	// 	return apiGet('api.get.bros_prev', path, options, cb);
+	// 	return $this->apiGet('api.get.bros_prev', path, options, cb);
 	// }
 
 	// /**
 	//  * 次のページを取得する
 	//  */
-	// this.get_next = function(path, cb){
+	// public function get_next = function(path, cb){
 	// 	var options = {};
 	// 	if(arguments.length >= 3){
 	// 		options = sitemap_children_params(arguments[1]);
 	// 		cb = arguments[2];
 	// 	}
-	// 	return apiGet('api.get.next', path, options, cb);
+	// 	return $this->apiGet('api.get.next', path, options, cb);
 	// }
 
 	// /**
 	//  * 前のページを取得する
 	//  */
-	// this.get_prev = function(path, cb){
+	// public function get_prev = function(path, cb){
 	// 	var options = {};
 	// 	if(arguments.length >= 3){
 	// 		options = sitemap_children_params(arguments[1]);
 	// 		cb = arguments[2];
 	// 	}
-	// 	return apiGet('api.get.prev', path, options, cb);
+	// 	return $this->apiGet('api.get.prev', path, options, cb);
 	// }
 
 	// /**
 	//  * パンくず配列を取得する
 	//  */
-	// this.get_breadcrumb_array = function(path, cb){
-	// 	return apiGet('api.get.breadcrumb_array', path, {}, cb);
+	// public function get_breadcrumb_array = function(path, cb){
+	// 	return $this->apiGet('api.get.breadcrumb_array', path, {}, cb);
 	// }
 
 	// /**
 	//  * ダイナミックパス情報を得る
 	//  */
-	// this.get_dynamic_path_info = function(path, cb){
-	// 	return apiGet('api.get.dynamic_path_info', '/', {
+	// public function get_dynamic_path_info = function(path, cb){
+	// 	return $this->apiGet('api.get.dynamic_path_info', '/', {
 	// 		"path":path
 	// 	}, cb);
 	// }
@@ -281,8 +281,8 @@ class px2project{
 	// /**
 	//  * ダイナミックパスに値をバインドする
 	//  */
-	// this.bind_dynamic_path_param = function(path, param, cb){
-	// 	return apiGet('api.get.bind_dynamic_path_param', '/', {
+	// public function bind_dynamic_path_param = function(path, param, cb){
+	// 	return $this->apiGet('api.get.bind_dynamic_path_param', '/', {
 	// 		"path":path,
 	// 		"param":JSON.stringify(param)
 	// 	}, cb);
@@ -291,15 +291,15 @@ class px2project{
 	// /**
 	//  * role を取得する
 	//  */
-	// this.get_role = function(path, cb){
-	// 	return apiGet('api.get.role', path, {}, cb);
+	// public function get_role = function(path, cb){
+	// 	return $this->apiGet('api.get.role', path, {}, cb);
 	// }
 
 	// /**
 	//  * Actor のページID一覧を取得する
 	//  */
-	// this.get_actors = function(path, cb){
-	// 	return apiGet('api.get.actors', path, {}, cb);
+	// public function get_actors = function(path, cb){
+	// 	return $this->apiGet('api.get.actors', path, {}, cb);
 	// }
 
 	// /**
@@ -308,21 +308,21 @@ class px2project{
 	//  * `get_path_homedir()` は 非推奨のメソッドです。
 	//  * 代わりに、 `get_realpath_homedir()` を使用してください。
 	//  */
-	// this.get_path_homedir = function(cb){
-	// 	return apiGet('api.get.path_homedir', '/', {}, cb);
+	// public function get_path_homedir = function(cb){
+	// 	return $this->apiGet('api.get.path_homedir', '/', {}, cb);
 	// }
 	// /**
 	//  * get home directory path
 	//  */
-	// this.get_realpath_homedir = function(cb){
-	// 	return apiGet('api.get.path_homedir', '/', {}, cb);
+	// public function get_realpath_homedir = function(cb){
+	// 	return $this->apiGet('api.get.path_homedir', '/', {}, cb);
 	// }
 
 	// /**
 	//  * コンテンツルートディレクトリのパス(=install path) を取得する
 	//  */
-	// this.get_path_controot = function(cb){
-	// 	return apiGet('api.get.path_controot', '/', {}, cb);
+	// public function get_path_controot = function(cb){
+	// 	return $this->apiGet('api.get.path_controot', '/', {}, cb);
 	// }
 
 	// /**
@@ -331,30 +331,30 @@ class px2project{
 	//  * `get_path_docroot()` は 非推奨のメソッドです。
 	//  * 代わりに、 `get_realpath_docroot()` を使用してください。
 	//  */
-	// this.get_path_docroot = function(cb){
-	// 	return apiGet('api.get.path_docroot', '/', {}, cb);
+	// public function get_path_docroot = function(cb){
+	// 	return $this->apiGet('api.get.path_docroot', '/', {}, cb);
 	// }
 
 	// /**
 	//  * DOCUMENT_ROOT のパスを取得する
 	//  */
-	// this.get_realpath_docroot = function(cb){
-	// 	return apiGet('api.get.path_docroot', '/', {}, cb);
+	// public function get_realpath_docroot = function(cb){
+	// 	return $this->apiGet('api.get.path_docroot', '/', {}, cb);
 	// }
 
 	// /**
 	//  * get content path
 	//  */
-	// this.get_path_content = function(path, cb){
-	// 	return apiGet('api.get.path_content', path, {}, cb);
+	// public function get_path_content = function(path, cb){
+	// 	return $this->apiGet('api.get.path_content', path, {}, cb);
 	// }
 
 	// /**
 	//  * ローカルリソースディレクトリのパスを得る
 	//  */
-	// this.path_files = function(path, path_resource, cb){
+	// public function path_files = function(path, path_resource, cb){
 	// 	path_resource = path_resource||'';
-	// 	return apiGet('api.get.path_files', path, {
+	// 	return $this->apiGet('api.get.path_files', path, {
 	// 		"path_resource":path_resource
 	// 	}, cb);
 	// }
@@ -362,9 +362,9 @@ class px2project{
 	// /**
 	//  * ローカルリソースディレクトリのサーバー内部パスを得る
 	//  */
-	// this.realpath_files = function(path, path_resource, cb){
+	// public function realpath_files = function(path, path_resource, cb){
 	// 	path_resource = path_resource||'';
-	// 	return apiGet('api.get.realpath_files', path, {
+	// 	return $this->apiGet('api.get.realpath_files', path, {
 	// 		"path_resource":path_resource
 	// 	}, cb);
 	// }
@@ -372,9 +372,9 @@ class px2project{
 	// /**
 	//  * ローカルリソースのキャッシュディレクトリのパスを得る
 	//  */
-	// this.path_files_cache = function(path, path_resource, cb){
+	// public function path_files_cache = function(path, path_resource, cb){
 	// 	path_resource = path_resource||'';
-	// 	return apiGet('api.get.path_files_cache', path, {
+	// 	return $this->apiGet('api.get.path_files_cache', path, {
 	// 		"path_resource":path_resource
 	// 	}, cb);
 	// }
@@ -382,9 +382,9 @@ class px2project{
 	// /**
 	//  * ローカルリソースのキャッシュディレクトリのサーバー内部パスを得る
 	//  */
-	// this.realpath_files_cache = function(path, path_resource, cb){
+	// public function realpath_files_cache = function(path, path_resource, cb){
 	// 	path_resource = path_resource||'';
-	// 	return apiGet('api.get.realpath_files_cache', path, {
+	// 	return $this->apiGet('api.get.realpath_files_cache', path, {
 	// 		"path_resource":path_resource
 	// 	}, cb);
 	// }
@@ -392,9 +392,9 @@ class px2project{
 	// /**
 	//  * コンテンツ別の非公開キャッシュディレクトリのサーバー内部パスを得る
 	//  */
-	// this.realpath_files_private_cache = function(path, path_resource, cb){
+	// public function realpath_files_private_cache = function(path, path_resource, cb){
 	// 	path_resource = path_resource||'';
-	// 	return apiGet('api.get.realpath_files_private_cache', path, {
+	// 	return $this->apiGet('api.get.realpath_files_private_cache', path, {
 	// 		"path_resource":path_resource
 	// 	}, cb);
 	// }
@@ -402,36 +402,36 @@ class px2project{
 	// /**
 	//  * domain を取得する
 	//  */
-	// this.get_domain = function(cb){
-	// 	return apiGet('api.get.domain', '/', {}, cb);
+	// public function get_domain = function(cb){
+	// 	return $this->apiGet('api.get.domain', '/', {}, cb);
 	// }
 
 	// /**
 	//  * directory_index(省略できるファイル名) の一覧を得る
 	//  */
-	// this.get_directory_index = function(cb){
-	// 	return apiGet('api.get.directory_index', '/', {}, cb);
+	// public function get_directory_index = function(cb){
+	// 	return $this->apiGet('api.get.directory_index', '/', {}, cb);
 	// }
 
 	// /**
 	//  * 最も優先されるインデックスファイル名を得る
 	//  */
-	// this.get_directory_index_primary = function(cb){
-	// 	return apiGet('api.get.directory_index_primary', '/', {}, cb);
+	// public function get_directory_index_primary = function(cb){
+	// 	return $this->apiGet('api.get.directory_index_primary', '/', {}, cb);
 	// }
 
 	// /**
 	//  * ファイルの処理方法を調べる
 	//  */
-	// this.get_path_proc_type = function(path, cb){
-	// 	return apiGet('api.get.path_proc_type', path, {}, cb);
+	// public function get_path_proc_type = function(path, cb){
+	// 	return $this->apiGet('api.get.path_proc_type', path, {}, cb);
 	// }
 
 	// /**
 	//  * リンク先のパスを生成する
 	//  */
-	// this.href = function(path_linkto, cb){
-	// 	return apiGet('api.get.href', '/', {
+	// public function href = function(path_linkto, cb){
+	// 	return $this->apiGet('api.get.href', '/', {
 	// 		"linkto":path_linkto
 	// 	}, cb);
 	// }
@@ -439,8 +439,8 @@ class px2project{
 	// /**
 	//  * パスがダイナミックパスにマッチするか調べる
 	//  */
-	// this.is_match_dynamic_path = function(path, cb){
-	// 	return apiGet('api.is.match_dynamic_path', '/', {
+	// public function is_match_dynamic_path = function(path, cb){
+	// 	return $this->apiGet('api.is.match_dynamic_path', '/', {
 	// 		"path":path
 	// 	}, cb);
 	// }
@@ -448,8 +448,8 @@ class px2project{
 	// /**
 	//  * ページが、パンくず内に存在しているか調べる
 	//  */
-	// this.is_page_in_breadcrumb = function(path, path_in, cb){
-	// 	return apiGet('api.is.page_in_breadcrumb', path, {
+	// public function is_page_in_breadcrumb = function(path, path_in, cb){
+	// 	return $this->apiGet('api.is.page_in_breadcrumb', path, {
 	// 		"path":path_in
 	// 	}, cb);
 	// }
@@ -457,8 +457,8 @@ class px2project{
 	// /**
 	//  * 除外ファイルか調べる
 	//  */
-	// this.is_ignore_path = function(path, cb){
-	// 	return apiGet('api.is.ignore_path', '/', {
+	// public function is_ignore_path = function(path, cb){
+	// 	return $this->apiGet('api.is.ignore_path', '/', {
 	// 		"path":path
 	// 	}, cb);
 	// }
@@ -467,7 +467,7 @@ class px2project{
 	// /**
 	//  * パブリッシュする
 	//  */
-	// this.publish = function(opt){
+	// public function publish = function(opt){
 	// 	opt = opt||{};
 
 	// 	// path_region
@@ -512,7 +512,7 @@ class px2project{
 	// /**
 	//  * キャッシュを削除する
 	//  */
-	// this.clearcache = function(opt){
+	// public function clearcache = function(opt){
 	// 	opt = opt||{};
 
 	// 	return this.query(
