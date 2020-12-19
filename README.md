@@ -323,6 +323,10 @@ $ composer run-script documentation
 
 ## 更新履歴 - Change log
 
+### pickles2/px2agent v0.0.2 (リリース日未定)
+
+- Windows で、コマンド中に `%` が含まれる場合に失敗する問題を修正。
+
 ### pickles2/px2agent v0.0.1 (2020年8月12日)
 
 - Initial Release.
