@@ -323,7 +323,7 @@ $ composer run-script documentation
 
 ## 更新履歴 - Change log
 
-### pickles2/px2agent v0.0.3 (リリース日未定)
+### pickles2/px2agent v0.0.3 (2021年1月16日)
 
 - `$pj->query()` に、新しいオプション `method`、 `body`、 `body_file` を追加。
 
