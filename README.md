@@ -323,7 +323,7 @@ $ composer run-script documentation
 
 ## 更新履歴 - Change log
 
-### pickles2/px2agent v0.0.4 (リリース日未定)
+### pickles2/px2agent v0.0.4 (2022年1月3日)
 
 - PHPコマンドのパスが引き回されない不具合を修正。
 
