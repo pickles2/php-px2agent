@@ -71,6 +71,10 @@ class px2project{
 
 		array_push($php_command, escapeshellarg( realpath($this->path_entry_script) ));
 
+		// PHPコマンドのパス
+		array_push($php_command, '--command-php');
+		array_push($php_command, $path_cmd_php);
+
 		// 出力形式
 		if( array_key_exists('output', $options) && $options['output'] == 'json' ){
 			array_push($php_command, '-o');
