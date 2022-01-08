@@ -4,3 +4,9 @@ composer.phar
 composer.lock
 /vendor/
 /node_modules/
+
+# PHPUnit
+.phpunit.result.cache
+
+# PHP Documentor
+.phpdoc

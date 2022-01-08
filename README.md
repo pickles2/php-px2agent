@@ -323,6 +323,11 @@ $ composer run-script documentation
 
 ## 更新履歴 - Change log
 
+### pickles2/px2agent v0.1.0 (リリース日未定)
+
+- サポートするPHPのバージョンを `>=7.3.0` に変更。
+- PHP 8.1 に対応した。
+
 ### pickles2/px2agent v0.0.4 (2022年1月3日)
 
 - PHPコマンドのパスが引き回されない不具合を修正。
