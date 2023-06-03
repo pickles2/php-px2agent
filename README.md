@@ -323,6 +323,10 @@ $ composer run-script documentation
 
 ## 更新履歴 - Change log
 
+### pickles2/px2agent v0.2.0 (リリース日未定)
+
+- PHP 8.2 に対応した。
+
 ### pickles2/px2agent v0.1.0 (2022年1月8日)
 
 - サポートするPHPのバージョンを `>=7.3.0` に変更。

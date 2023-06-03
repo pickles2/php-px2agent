@@ -24,15 +24,15 @@ class px2project{
 	 */
 	public function query($request_path, $options = null, &$return_var = null){
 		$path_cmd_php = 'php';
-		if( array_key_exists('bin', $this->options) && strlen(''.$this->options['bin']) ){
+		if( array_key_exists('bin', $this->options) && strlen($this->options['bin'] ?? '') ){
 			$path_cmd_php = $this->options['bin'];
 		}
 		$path_cmd_php_ini = null;
-		if( array_key_exists('ini', $this->options) && strlen(''.$this->options['ini']) ){
+		if( array_key_exists('ini', $this->options) && strlen($this->options['ini'] ?? '') ){
 			$path_cmd_php_ini = $this->options['ini'];
 		}
 		$path_extension_dir = null;
-		if( array_key_exists('extension_dir', $this->options) && strlen(''.$this->options['extension_dir']) ){
+		if( array_key_exists('extension_dir', $this->options) && strlen($this->options['extension_dir'] ?? '') ){
 			$path_extension_dir = $this->options['extension_dir'];
 		}
 
@@ -44,14 +44,14 @@ class px2project{
 			$this->main->error('Invalid argument supplied for 1st option $request_path in $px2project->query(). It required String value.');
 			return false;
 		}
-		if(!strlen(''.$request_path)){ $request_path = '/'; }
-		if(is_null($options)){ $options = array(); }
+		if(!strlen($request_path ?? '')){ $request_path = '/'; }
+		if(is_null($options ?? null)){ $options = array(); }
 		if(!is_array($options)){ $options = (array) $options; }
 		$php_command = array();
 		array_push( $php_command, addslashes($path_cmd_php) );
 			// ↑ Windows でこれを `escapeshellarg()` でエスケープすると、なぜかエラーに。
 
-		if( strlen(''.$path_cmd_php_ini) ){
+		if( strlen($path_cmd_php_ini ?? '') ){
 			$php_command = array_merge(
 				$php_command,
 				array(
@@ -60,7 +60,7 @@ class px2project{
 			);
 		}
 
-		if( strlen(''.$path_extension_dir) ){
+		if( strlen($path_extension_dir ?? '') ){
 			$php_command = array_merge(
 				$php_command,
 				array(
@@ -82,23 +82,23 @@ class px2project{
 		}
 
 		// USER_AGENT
-		if( array_key_exists('user_agent', $options) && strlen(''.$options['user_agent']) ){
+		if( array_key_exists('user_agent', $options) && strlen($options['user_agent'] ?? '') ){
 			array_push($php_command, '-u');
 			array_push($php_command, escapeshellarg($options['user_agent']));
 		}
 
 		// Request Method
-		if( array_key_exists('method', $options) && strlen(''.$options['method']) ){
+		if( array_key_exists('method', $options) && strlen($options['method'] ?? '') ){
 			array_push($php_command, '--method');
 			array_push($php_command, escapeshellarg($options['method']));
 		}
 
 		// Request Body
-		if( array_key_exists('body', $options) && strlen(''.$options['body']) ){
+		if( array_key_exists('body', $options) && strlen($options['body'] ?? '') ){
 			array_push($php_command, '--body');
 			array_push($php_command, escapeshellarg($options['body']));
 		}
-		if( array_key_exists('body_file', $options) && strlen(''.$options['body_file']) ){
+		if( array_key_exists('body_file', $options) && strlen($options['body_file'] ?? '') ){
 			array_push($php_command, '--body-file');
 			array_push($php_command, escapeshellarg($options['body_file']));
 		}
@@ -134,7 +134,7 @@ class px2project{
 		ob_get_clean();
 
 		$bin = $io[1]; // stdout
-		if( strlen( ''.$io[2] ) ){
+		if( strlen( $io[2] ?? '' ) ){
 			// $this->error($io[2]); // stderr
 		}
 
@@ -151,7 +151,7 @@ class px2project{
 	 * PX=api.*を投げる
 	 */
 	protected function apiGet($cmd, $path = '/', $param = array()){
-		if( !strlen(''.$path) ){
+		if( !strlen($path ?? '') ){
 			$path = '/';
 		}
 		if( !is_array($param) ){
@@ -374,7 +374,7 @@ class px2project{
 	 * ローカルリソースディレクトリのパスを得る
 	 */
 	public function path_files($path, $path_resource = null){
-		if (!strlen(''.$path_resource)) { 
+		if (!strlen($path_resource ?? '')) { 
 			$path_resource = '';
 		}
 		return $this->apiGet('api.get.path_files', $path, array(
@@ -386,7 +386,7 @@ class px2project{
 	 * ローカルリソースディレクトリのサーバー内部パスを得る
 	 */
 	public function realpath_files($path, $path_resource = null){
-		if (!strlen(''.$path_resource)) { 
+		if (!strlen($path_resource ?? '')) { 
 			$path_resource = '';
 		}
 		return $this->apiGet('api.get.realpath_files', $path, array(
@@ -398,7 +398,7 @@ class px2project{
 	 * ローカルリソースのキャッシュディレクトリのパスを得る
 	 */
 	public function path_files_cache($path, $path_resource = null){
-		if (!strlen(''.$path_resource)) { 
+		if (!strlen($path_resource ?? '')) { 
 			$path_resource = '';
 		}
 		return $this->apiGet('api.get.path_files_cache', $path, array(
@@ -410,7 +410,7 @@ class px2project{
 	 * ローカルリソースのキャッシュディレクトリのサーバー内部パスを得る
 	 */
 	public function realpath_files_cache($path, $path_resource = null){
-		if (!strlen(''.$path_resource)) { 
+		if (!strlen($path_resource ?? '')) { 
 			$path_resource = '';
 		}
 		return $this->apiGet('api.get.realpath_files_cache', $path, array(
@@ -422,7 +422,7 @@ class px2project{
 	 * コンテンツ別の非公開キャッシュディレクトリのサーバー内部パスを得る
 	 */
 	public function realpath_files_private_cache($path, $path_resource = null){
-		if (!strlen(''.$path_resource)) { 
+		if (!strlen($path_resource ?? '')) { 
 			$path_resource = '';
 		}
 		return $this->apiGet('api.get.realpath_files_private_cache', $path, array(
